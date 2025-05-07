@@ -1,0 +1,128 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Particle Logo</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #f0f0f0; /* Màu nền trang */
+            color: #333;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+        #ui {
+            position: absolute;
+            top: 15px;
+            width: 100%;
+            text-align: center;
+            z-index: 100;
+            /* pointer-events: none; Bỏ cái này để input file hoạt động */
+        }
+        #info {
+            font-size: 16px;
+            padding: 10px 18px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            display: inline-block;
+            text-shadow: 0 0 5px rgba(0, 102, 204, 0.5);
+            border: 1px solid rgba(0, 102, 204, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            box-shadow: inset 0 0 10px rgba(0, 102, 204, 0.05);
+            margin-bottom: 10px; /* Thêm khoảng cách dưới */
+            pointer-events: auto; /* Cho phép tương tác */
+            cursor: default;
+        }
+        #fileInputContainer {
+            display: inline-block;
+            padding: 8px 15px;
+            background-color: rgba(0, 102, 204, 0.7);
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            pointer-events: auto; /* Cho phép tương tác */
+            font-size: 14px;
+            text-shadow: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        #fileInputContainer:hover {
+            background-color: rgba(0, 102, 204, 0.9);
+        }
+        #imageInput {
+            display: none; /* Ẩn input mặc định */
+        }
+        #loading {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 0.6s ease-out;
+        }
+        #loading span {
+            font-size: 20px;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+        #progress-container {
+            width: 60%;
+            max-width: 300px;
+            height: 5px;
+            background-color: rgba(0, 102, 204, 0.2);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        #progress {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #007bff, #66b3ff);
+            transition: width 0.3s ease;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div id="loading">
+        <span>Loading...</span>
+        <div id="progress-container">
+            <div id="progress"></div>
+        </div>
+    </div>
+
+    <div id="ui">
+        <div id="info">Initializing...</div>
+
+        <label for="imageInput" id="fileInputContainer">Choose Image</label>
+        <input type="file" id="imageInput" accept="image/*">
+    </div>
+
+    <canvas id="webglCanvas"></canvas>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.163.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.163.0/examples/jsm/",
+          "animejs": "https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.es.js",
+          "simplex-noise": "https://cdn.skypack.dev/simplex-noise@4.0.1"
+        }
+      }
+    </script>
+
+    <script type="module" src="./script.js"></script>
+</body>
+</html>
